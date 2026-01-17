@@ -1,0 +1,19 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.2
+
+# Ignore-Regeln für Flutter/Dart-Projekte
+# Verwende diese nur, wenn du weißt, was du tust!
+
+# Patch-Regeln
+# patches:
+#   'npm:hoek:20180212':
+#     - hoek > 2.0.0 < 5.0.2:
+#         patched: '2018-02-27T09:34:25.681Z'
+#         path: 'npm:hoek@2.0.0'
+
+# Ignore-Regeln (Beispiel - nicht aktiviert)
+# ignore:
+#   SNYK-JS-PACRESOLVER-1564857:
+#     - '*':
+#         reason: Keine Updates verfügbar, Risiko akzeptabel
+#         expires: '2024-12-31T23:59:59.000Z'

@@ -1,0 +1,67 @@
+name: Snyk Security Scan
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  schedule:
+    # Führe wöchentlich einen Scan durch (jeden Montag um 9:00 UTC)
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Ermöglicht manuelles Auslösen
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    name: Run Snyk to check for vulnerabilities
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0' # Passe die Version an deine Flutter-Version an
+          channel: 'stable'
+      
+      - name: Install dependencies
+        run: flutter pub get
+      
+      - name: Run Snyk to check for vulnerabilities (Dart/Flutter)
+        uses: snyk/actions/setup@master
+      
+      - name: Run Snyk test for Pub dependencies
+        uses: snyk/actions/test@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=pubspec.yaml --package-manager=pkg:pub --severity-threshold=high
+      
+      - name: Build Android app for native dependency scanning
+        run: flutter build apk --debug || true
+      
+      - name: Run Snyk test for Gradle (Android)
+        uses: snyk/actions/test@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=android/app/build.gradle.kts --package-manager=gradle --severity-threshold=high
+        if: success() || failure()
+      
+      - name: Upload Snyk results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: snyk.sarif
+        continue-on-error: true
+      
+      - name: Snyk monitor (Pub dependencies)
+        uses: snyk/actions/monitor@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=pubspec.yaml --package-manager=pkg:pub --severity-threshold=high
