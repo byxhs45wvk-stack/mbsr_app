@@ -184,7 +184,8 @@ class AuthService {
 
       // Appwrite benötigt eine Redirect-URL für den Reset-Link
       // Diese sollte zu deiner App zurückführen
-      final redirectUrl = 'https://mbsr-stresspraevention.web.app/reset-password';
+      final redirectUrl =
+          'https://byxhs45wvk-stack.github.io/mbsr_app/reset-password';
 
       await _appwrite.account.createRecovery(
         email: email,

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'services/auth_service.dart';
 import 'kurs_uebersicht.dart';
@@ -68,14 +67,30 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _isLoading = true);
     try {
-      await AuthService().login(email: _emailController.text.trim(), password: _passwordController.text.trim());
+      await AuthService().login(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
       await AuthService().authStateChanges.first;
       if (mounted) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const KursUebersicht()));
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const KursUebersicht()),
+        );
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: Colors.red));
+        String errorMsg = e.toString();
+        if (errorMsg.contains('XMLHttpRequest error')) {
+          errorMsg =
+              "Verbindungsfehler (CORS). Bitte stelle sicher, dass die neue Domain in Appwrite unter 'Platforms' hinzugefügt wurde.";
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMsg),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 8),
+          ),
+        );
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -117,6 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 label: "E-Mail",
                 icon: Icons.email_outlined,
                 validator: _validateEmail,
+                textInputAction: TextInputAction.next,
+                onSubmitted: (_) => _passwordFocusNode.requestFocus(),
               ),
               const SizedBox(height: 20),
               _buildTextField(
@@ -126,6 +143,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 icon: Icons.lock_outlined,
                 isPassword: true,
                 validator: _validatePassword,
+                textInputAction: TextInputAction.done,
+                onSubmitted: (_) => _login(),
               ),
               
               Align(
@@ -164,26 +183,47 @@ class _LoginScreenState extends State<LoginScreen> {
     required IconData icon,
     bool isPassword = false,
     String? Function(String?)? validator,
+    void Function(String)? onSubmitted,
+    TextInputAction? textInputAction,
   }) {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
       obscureText: isPassword && !_passwordVisible,
       validator: validator,
+      onFieldSubmitted: onSubmitted,
+      textInputAction: textInputAction,
       style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold),
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon, color: AppStyles.softBrown.withOpacity(0.5)),
-        suffixIcon: isPassword ? IconButton(
-          icon: Icon(_passwordVisible ? Icons.visibility : Icons.visibility_off, color: Colors.grey),
-          onPressed: () => setState(() => _passwordVisible = !_passwordVisible),
-        ) : null,
+        suffixIcon: isPassword
+            ? IconButton(
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.grey,
+                ),
+                onPressed:
+                    () => setState(() => _passwordVisible = !_passwordVisible),
+              )
+            : null,
         filled: true,
         fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide(color: Colors.grey.withOpacity(0.2))),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide(color: Colors.grey.withOpacity(0.1))),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: const BorderSide(color: AppStyles.primaryOrange, width: 1.5)),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide:
+              const BorderSide(color: AppStyles.primaryOrange, width: 1.5),
+        ),
       ),
     );
   }

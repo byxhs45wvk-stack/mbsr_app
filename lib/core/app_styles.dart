@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppStyles {
   // Global Colors (Headspace Style)
   static const Color bgColor = Color(0xFFFBF7F2); // Sanftes Off-White/Beige
   static const Color primaryOrange = Color(0xFFC97D60); // Warmes Orange (Aktiv)
   static const Color accentOrange = Color(0xFFE89B7A); // Hellere Nuance
-  static const Color sageGreen = Color(0xFF7A8B6F); // Ruhiges Salbeigrün (Abgeschlossen)
+  static const Color sageGreen = Color(
+    0xFF7A8B6F,
+  ); // Ruhiges Salbeigrün (Abgeschlossen)
   static const Color softBrown = Color(0xFF8B7565); // Sanftes Braun (Texte)
-  static const Color borderColor = Color(0xFFE0E0E0); // Sehr feine graue Umrandung
-  
+  static const Color borderColor = Color(
+    0xFFE0E0E0,
+  ); // Sehr feine graue Umrandung
+
   // Border Radius
   static const double borderRadius = 28.0;
   static final RoundedRectangleBorder cardShape = RoundedRectangleBorder(
@@ -38,9 +41,6 @@ class AppStyles {
     color: softBrown,
   );
 
-  static TextStyle get bodyStyle => const TextStyle(
-    fontSize: 14,
-    color: softBrown,
-    height: 1.5,
-  );
+  static TextStyle get bodyStyle =>
+      const TextStyle(fontSize: 14, color: softBrown, height: 1.5);
 }
