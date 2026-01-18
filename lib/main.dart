@@ -42,10 +42,15 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Lade .env Konfiguration
-  await dotenv.load(fileName: ".env");
+  // Lade .env Konfiguration (Fehlertolerant für Web)
+  try {
+    await dotenv.load(fileName: ".env");
+    if (kDebugMode) debugPrint('✅ .env Datei geladen');
+  } catch (e) {
+    if (kDebugMode) debugPrint('ℹ️ Keine .env Datei gefunden, nutze Standardwerte');
+  }
 
-  // Initialisiere Appwrite Client (ersetzt Firebase)
+  // Initialisiere Appwrite Client
   AppwriteClient();
 
   // Initialisiere Auth-Service und prüfe bestehende Session
