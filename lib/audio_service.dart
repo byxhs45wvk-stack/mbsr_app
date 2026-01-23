@@ -95,13 +95,16 @@ class AudioService {
     // Clean Swap: Altes Audio stoppen
     _updateStatus(AudioServiceStatus.loading);
     try {
-      // WICHTIG: Setze Tracking-Status zurück, bevor wir das neue Audio laden
+      // WICHTIG: Setze Infos SOFORT, damit der Player in der UI erscheint
+      _currentAppwriteId = appwriteId;
+      _currentTitle = title;
+      _currentAudio = audio;
+      _updateStatus(AudioServiceStatus.loading); // Erneutes Update für die UI
+
+      // WICHTIG: Setze Tracking-Status zurück
       _hasTracked80Percent = false;
       _sessionStartPosition = null;
       _sessionStartTime = null;
-      _currentAppwriteId = null; // Verhindert Tracking während des Ladens
-      _currentTitle = null;
-      _currentAudio = null;
 
       await _player.stop();
 
@@ -117,9 +120,6 @@ class AudioService {
         preload: true, // Lädt Metadaten (Dauer) sofort
       );
 
-      // Erst nach dem Laden die Informationen setzen
-      _currentAppwriteId = appwriteId;
-      _currentTitle = title;
       _currentAudio = audio;
 
       await _player.play();
