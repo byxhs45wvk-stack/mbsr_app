@@ -13,6 +13,7 @@ import 'core/app_styles.dart';
 import 'audio_service.dart';
 import 'widgets/ambient_background.dart';
 import 'widgets/animated_play_button.dart';
+import 'widgets/decorative_blobs.dart';
 
 class KursUebersicht extends StatefulWidget {
   final String kursTyp;
@@ -536,25 +537,31 @@ class _KursUebersichtState extends State<KursUebersicht> {
       key: _kursNavigatorKey,
       onGenerateRoute: (settings) {
         return MaterialPageRoute(
-          builder: (context) => ListView(
-            controller: _scrollController,
-            padding: const EdgeInsets.only(bottom: 180), // Mehr Platz für Mini-Player
-            children: [
-              _buildHeader(),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildFilterRow(),
-                    const SizedBox(height: 16),
-                    ...AppDaten.wochenDaten.map((w) => _buildWochenCard(context, w)),
-                    const SizedBox(height: 8),
-                    _buildTagDerAchtsamkeitCard(context),
-                  ],
+          builder: (context) => DecorativeBlobs(
+            child: ListView(
+              controller: _scrollController,
+              padding: const EdgeInsets.only(bottom: 180), // Mehr Platz für Mini-Player
+              children: [
+                _buildHeader(),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildFilterRow(),
+                      const SizedBox(height: 16),
+                      ...AppDaten.wochenDaten.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final woche = entry.value;
+                        return _buildWochenCard(context, woche, index);
+                      }),
+                      const SizedBox(height: 8),
+                      _buildTagDerAchtsamkeitCard(context),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -566,13 +573,26 @@ class _KursUebersichtState extends State<KursUebersicht> {
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
       child: Column(
         children: [
-          const Icon(Icons.self_improvement, color: AppStyles.primaryOrange, size: 48),
-          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppStyles.primaryOrange.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.self_improvement,
+              color: AppStyles.primaryOrange,
+              size: 48,
+            ),
+          ),
+          const SizedBox(height: 20),
           Text("Dein MBSR-Kurs", style: AppStyles.titleStyle, textAlign: TextAlign.center),
           const SizedBox(height: 8),
           Text(
             "8-Wochen-Achtsamkeitsprogramm",
-            style: AppStyles.bodyStyle.copyWith(color: AppStyles.softBrown.withOpacity(0.7)),
+            style: AppStyles.bodyStyle.copyWith(
+              color: AppStyles.textDark.withOpacity(0.6),
+            ),
             textAlign: TextAlign.center,
           ),
         ],
@@ -587,7 +607,20 @@ class _KursUebersichtState extends State<KursUebersicht> {
     );
   }
 
-  Widget _buildWochenCard(BuildContext context, Map<String, dynamic> woche) {
+  Widget _buildWochenCard(BuildContext context, Map<String, dynamic> woche, int index) {
+    // Rotiere durch die Blob-Farben für jeden Card
+    final colors = [
+      AppStyles.successGreen,
+      AppStyles.primaryOrange,
+      AppStyles.accentPink,
+      AppStyles.accentCyan,
+      AppStyles.accentCoral,
+      AppStyles.accentOrange,
+      AppStyles.successGreen,
+      AppStyles.primaryOrange,
+    ];
+    final cardColor = colors[index % colors.length];
+    
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       shape: AppStyles.cardShape,
@@ -598,11 +631,19 @@ class _KursUebersichtState extends State<KursUebersicht> {
         leading: Container(
           width: 48,
           height: 48,
-          decoration: BoxDecoration(color: AppStyles.sageGreen.withOpacity(0.1), shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: cardColor.withOpacity(0.15),
+            shape: BoxShape.circle,
+            border: Border.all(color: cardColor.withOpacity(0.3), width: 2),
+          ),
           child: Center(
             child: Text(
               woche['n'], 
-              style: const TextStyle(color: AppStyles.sageGreen, fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(
+                color: cardColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
           ),
         ),
@@ -626,19 +667,44 @@ class _KursUebersichtState extends State<KursUebersicht> {
   Widget _buildTagDerAchtsamkeitCard(BuildContext context) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
-      shape: AppStyles.cardShape.copyWith(side: const BorderSide(color: AppStyles.primaryOrange, width: 1.5)),
+      shape: AppStyles.cardShape.copyWith(
+        side: BorderSide(
+          color: AppStyles.accentPink.withOpacity(0.4),
+          width: 2,
+        ),
+      ),
       elevation: 0,
-      color: AppStyles.primaryOrange.withOpacity(0.05),
+      color: AppStyles.accentPink.withOpacity(0.08),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         leading: Container(
           width: 48,
           height: 48,
-          decoration: const BoxDecoration(color: AppStyles.primaryOrange, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppStyles.accentPink, AppStyles.accentCoral],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: AppStyles.accentPink.withOpacity(0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: const Icon(Icons.spa, color: Colors.white),
         ),
-        title: Text('Tag der Achtsamkeit', style: AppStyles.subTitleStyle.copyWith(color: AppStyles.primaryOrange)),
-        trailing: const Icon(Icons.chevron_right, color: AppStyles.primaryOrange),
+        title: Text(
+          'Tag der Achtsamkeit',
+          style: AppStyles.subTitleStyle.copyWith(
+            color: AppStyles.accentPink,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        trailing: Icon(Icons.chevron_right, color: AppStyles.accentPink),
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => TagDerAchtsamkeitSeite(daten: AppDaten.tagDerAchtsamkeit)),
         ),

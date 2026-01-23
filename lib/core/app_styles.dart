@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class AppStyles {
-  // Global Colors (Headspace Style - 2026 Modern)
+  // Global Colors (Headspace Style - 2026 Modern & Vibrant)
   static const Color bgColor = Color(0xFFFFFFFF); // Klares Weiß (modern)
-  static const Color primaryOrange = Color(0xFFFF6B35); // Kräftiges, lebendiges Orange
-  static const Color accentOrange = Color(0xFFFF8C42); // Warmes, helleres Orange
-  static const Color accentPink = Color(0xFFFF6B9D); // Warmes Pink (für Highlights)
+  static const Color primaryOrange = Color(0xFFFF6B6B); // Warmes Korallenrot (weniger grell, aber kräftig)
+  static const Color accentOrange = Color(0xFFFF8C69); // Warmes Lachs-Orange
+  static const Color accentPink = Color(0xFFFF6B9D); // Kräftiges Pink (für Highlights)
+  static const Color accentCoral = Color(0xFFFF8FA3); // Sanftes Korallen-Pink
   static const Color successGreen = Color(0xFF4ECDC4); // Frisches Türkis (Abgeschlossen/Erfolg)
+  static const Color accentCyan = Color(0xFF5BC0BE); // Lebendiges Cyan
   static const Color textDark = Color(0xFF2C3E50); // Modernes Dunkelgrau (Texte)
   static const Color softBrown = textDark; // Alias für Rückwärtskompatibilität
   static const Color sageGreen = successGreen; // Alias für Rückwärtskompatibilität
