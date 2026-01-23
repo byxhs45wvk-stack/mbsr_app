@@ -100,7 +100,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 2',
-          'appwrite_id': '696c0000000000000001', // Platzhalter ID
+          'appwrite_id': '696bfc7f003e17db0a1e',
         },
       ],
       'wochenAufgaben': [
@@ -116,7 +116,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 3',
-          'appwrite_id': '696c0000000000000002', // Platzhalter ID
+          'appwrite_id': '696bfc8c001ab2d0d7fb',
         },
       ],
       'wochenAufgaben': [
@@ -131,7 +131,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 4',
-          'appwrite_id': '696c0000000000000003', // Platzhalter ID
+          'appwrite_id': '696bfd3d00077e7e2c0b',
         },
       ],
       'wochenAufgaben': [
@@ -147,7 +147,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 5',
-          'appwrite_id': '696c0000000000000004', // Platzhalter ID
+          'appwrite_id': '696bfd450038aba59bcf',
         },
       ],
       'wochenAufgaben': [
@@ -162,7 +162,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 6',
-          'appwrite_id': '696c0000000000000005', // Platzhalter ID
+          'appwrite_id': '696bfd4f0037e7e16a9f',
         },
       ],
       'wochenAufgaben': [
@@ -177,7 +177,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 7',
-          'appwrite_id': '696c0000000000000006', // Platzhalter ID
+          'appwrite_id': '696bfd57000f4bb29d10',
         },
       ],
       'wochenAufgaben': [
@@ -192,7 +192,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 8',
-          'appwrite_id': '696c0000000000000007', // Platzhalter ID
+          'appwrite_id': '696bfd5f002394219efb',
         },
       ],
       'wochenAufgaben': [
