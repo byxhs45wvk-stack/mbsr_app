@@ -35,14 +35,14 @@ class AppDaten {
     {
       'title': 'Sitzmeditation (kurz)',
       'duration': '10 Min',
-      'appwrite_id': '696bfa2000a833c13ce',
+      'appwrite_id': '696bffa2000a833c13ce',
       'description':
           'In der Sitzmeditation stabilisierst du deine Aufmerksamkeit auf einem primären Objekt (meist der Atembewegung). Wenn der Fokus abschweift – was ein natürlicher Prozess des Gehirns ist – wird dies wertfrei registriert und die Aufmerksamkeit aktiv zum Anker zurückgeführt.',
     },
     {
       'title': 'Sitzmeditation (mittel)',
       'duration': '15 Min',
-      'appwrite_id': '696bfaa00090187914b',
+      'appwrite_id': '696bffaa00090187914b',
       'description':
           'In der Sitzmeditation stabilisierst du deine Aufmerksamkeit auf einem primären Objekt (meist der Atembewegung). Wenn der Fokus abschweift – was ein natürlicher Prozess des Gehirns ist – wird dies wertfrei registriert und die Aufmerksamkeit aktiv zum Anker zurückgeführt.',
     },
