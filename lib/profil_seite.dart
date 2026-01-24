@@ -104,7 +104,7 @@ class ProfilSeite extends StatelessWidget {
       ),
       body: DecorativeBlobs(
         child: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: AppStyles.listPadding,
           children: [
           // Profil-Header
           Center(
@@ -119,7 +119,7 @@ class ProfilSeite extends StatelessWidget {
                   ),
                   child: const Icon(Icons.person, size: 50, color: AppStyles.primaryOrange),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
                 Text(
                   user?.email ?? "Kein Benutzer",
                   style: AppStyles.headingStyle.copyWith(fontSize: 18),
@@ -127,10 +127,10 @@ class ProfilSeite extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
           // Funktionen
           Padding(
-            padding: const EdgeInsets.only(left: 8, bottom: 12),
+            padding: EdgeInsets.only(left: AppStyles.spacingS, bottom: AppStyles.spacingM - AppStyles.spacingS), // 12px
             child: Text(
               "FUNKTIONEN",
               style: AppStyles.bodyStyle.copyWith(
@@ -143,7 +143,7 @@ class ProfilSeite extends StatelessWidget {
           ),
           // Statistiken
           Card(
-            margin: const EdgeInsets.only(bottom: 16),
+            margin: EdgeInsets.only(bottom: AppStyles.spacingM),
             elevation: 0,
             color: Colors.white,
             shape: AppStyles.cardShape,
@@ -158,7 +158,7 @@ class ProfilSeite extends StatelessWidget {
               },
               borderRadius: BorderRadius.circular(AppStyles.borderRadius),
               child: Padding(
-                padding: const EdgeInsets.all(24),
+                padding: AppStyles.cardPadding,
                 child: Row(
                   children: [
                     Container(
@@ -174,7 +174,7 @@ class ProfilSeite extends StatelessWidget {
                         size: 24,
                       ),
                     ),
-                    const SizedBox(width: 20),
+                    SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +183,7 @@ class ProfilSeite extends StatelessWidget {
                             "Statistiken",
                             style: AppStyles.subTitleStyle,
                           ),
-                          const SizedBox(height: 4),
+                          AppStyles.spacingXSBox,
                           Text(
                             "Deine Praxis im Überblick",
                             style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
@@ -197,7 +197,7 @@ class ProfilSeite extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 32),
+          AppStyles.spacingXLBox,
           // Abmelden
           ElevatedButton.icon(
             onPressed: () => _signOut(context),
@@ -208,13 +208,13 @@ class ProfilSeite extends StatelessWidget {
               foregroundColor: AppStyles.primaryOrange,
               elevation: 0,
               side: BorderSide(color: AppStyles.primaryOrange.withOpacity(0.3), width: 1.5),
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(vertical: AppStyles.spacingM),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
           // Footer: Impressum & Datenschutz (dezente kleine Links)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -227,7 +227,7 @@ class ProfilSeite extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingM - AppStyles.spacingS), // 12px
                 child: Text(
                   '•',
                   style: TextStyle(color: AppStyles.softBrown.withOpacity(0.3)),
@@ -242,7 +242,7 @@ class ProfilSeite extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
         ],
         ),
       ),

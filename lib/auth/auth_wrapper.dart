@@ -302,7 +302,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
       backgroundColor: AppStyles.bgColor,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(32),
+          padding: AppStyles.screenPadding,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -311,7 +311,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
                 size: 80,
                 color: AppStyles.primaryOrange,
               ),
-              const SizedBox(height: 24),
+              AppStyles.spacingLBox,
               Text(
                 'Verbindungsfehler',
                 style: TextStyle(
@@ -320,7 +320,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
                   color: AppStyles.textDark,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
               Text(
                 'Bitte prüfe deine Internetverbindung.',
                 textAlign: TextAlign.center,
@@ -329,7 +329,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
                   color: AppStyles.textDark.withOpacity(0.7),
                 ),
               ),
-              const SizedBox(height: 32),
+              AppStyles.spacingXLBox,
               ElevatedButton.icon(
                 onPressed: () {
                   // Trigger Rebuild → erneuter Versuch
@@ -340,10 +340,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppStyles.primaryOrange,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
+                  padding: AppStyles.buttonPadding,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

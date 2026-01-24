@@ -3,6 +3,7 @@ import 'nutzungs_tracker.dart';
 import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/subtle_divider.dart';
 
 class StatistikenSeite extends StatefulWidget {
   const StatistikenSeite({super.key});
@@ -63,11 +64,11 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                 child: CircularProgressIndicator(color: AppStyles.primaryOrange),
               )
             : ListView(
-                padding: const EdgeInsets.all(24),
+                padding: AppStyles.listPadding,
                 children: [
                 // Datenschutz-Hinweis (prominent)
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
                   decoration: BoxDecoration(
                     color: AppStyles.sageGreen.withOpacity(0.05),
                     borderRadius: BorderRadius.circular(24),
@@ -83,7 +84,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                         color: AppStyles.sageGreen,
                         size: 24,
                       ),
-                      const SizedBox(width: 16),
+                      AppStyles.spacingMHorizontal,
                       Expanded(
                         child: Text(
                           'Deine Statistiken sind privat und nur für dich sichtbar. Sie werden lokal gespeichert.',
@@ -98,18 +99,18 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                   ),
                 ),
                 
-                const SizedBox(height: 32),
+                AppStyles.spacingXLBox,
                 
                 // Streak-Anzeige
                 if ((_statistiken['streak'] ?? 0) > 0)
                   _buildStreakCard(streak: _statistiken['streak'] ?? 0),
                 
-                const SizedBox(height: 24),
+                AppStyles.spacingLBox,
                 
                 // Wochenübersicht
                 _buildWochenUebersicht(wochenDaten: _statistiken['wochenDaten'] ?? {}),
                 
-                const SizedBox(height: 24),
+                const SpacingDivider(),
                 
                 // Stat-Karten Grid-like
                 _buildStatCard(
@@ -119,7 +120,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                   subtitle: "Insgesamt",
                   color: AppStyles.sageGreen,
                 ),
-                const SizedBox(height: 16),
+                AppStyles.spacingMBox,
                 
                 if ((_statistiken['durchschnittsSitzung'] ?? 0) > 0)
                   _buildStatCard(
@@ -130,7 +131,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                     color: AppStyles.primaryOrange,
                   ),
                 
-                const SizedBox(height: 16),
+                AppStyles.spacingMBox,
                 
                 _buildStatCard(
                   icon: Icons.library_music_outlined,
@@ -139,7 +140,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                   subtitle: "Verschiedene Audios",
                   color: AppStyles.softBrown,
                 ),
-                const SizedBox(height: 16),
+                AppStyles.spacingMBox,
                 
                 if (_statistiken['lieblingsUebung'] != null)
                   _buildStatCard(
@@ -150,19 +151,21 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                     color: AppStyles.primaryOrange,
                   ),
                 
-                const SizedBox(height: 24),
+                AppStyles.spacingLBox,
                 
                 // Übungsverteilung
-                if ((_statistiken['uebungsVerteilung'] as Map?)?.isNotEmpty ?? false)
+                if ((_statistiken['uebungsVerteilung'] as Map?)?.isNotEmpty ?? false) ...[
+                  const SpacingDivider(),
                   _buildUebungsVerteilung(
                     verteilung: _statistiken['uebungsVerteilung'] as Map<String, int>,
                   ),
+                ],
                 
-                const SizedBox(height: 40),
+                SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
                 
                 // Motivations-Text
                 _buildMotivationBox(),
-                const SizedBox(height: 100), // Platz für Floating Nav
+                const SizedBox(height: 100), // Platz für Floating Nav (spezifischer Wert)
               ],
             ),
       ),
@@ -171,7 +174,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
 
   Widget _buildStreakCard({required int streak}) {
     return Container(
-      padding: const EdgeInsets.all(28),
+      padding: EdgeInsets.all(AppStyles.spacingXL - AppStyles.spacingS), // 28px
       decoration: BoxDecoration(
         color: AppStyles.primaryOrange,
         borderRadius: BorderRadius.circular(28),
@@ -194,13 +197,13 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
             ),
             child: const Icon(Icons.local_fire_department, color: Colors.white, size: 36),
           ),
-          const SizedBox(width: 20),
+          SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Deine Serie', style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 4),
+                AppStyles.spacingXSBox,
                 Text('$streak ${streak == 1 ? "Tag" : "Tage"}', style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
               ],
             ),
@@ -216,12 +219,12 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
       color: Colors.white,
       shape: AppStyles.cardShape,
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: AppStyles.cardPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Diese Woche', style: AppStyles.subTitleStyle),
-            const SizedBox(height: 24),
+            AppStyles.spacingLBox,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map((day) {
@@ -236,7 +239,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                       fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
                       color: isToday ? AppStyles.primaryOrange : AppStyles.softBrown.withOpacity(0.5),
                     )),
-                    const SizedBox(height: 12),
+                    SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
                     Container(
                       width: 32,
                       height: 32,
@@ -263,7 +266,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
       color: Colors.white,
       shape: AppStyles.cardShape,
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
         child: Row(
           children: [
             Container(

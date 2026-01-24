@@ -112,19 +112,19 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: AppStyles.screenPadding,
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
               const Icon(Icons.lock_outline, size: 80, color: AppStyles.primaryOrange),
-              const SizedBox(height: 40),
+              SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
               Text("Willkommen zurück", style: AppStyles.titleStyle, textAlign: TextAlign.center),
-              const SizedBox(height: 12),
+              SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
               Text("Melde dich mit deinem Kurs-Account an.", style: AppStyles.bodyStyle, textAlign: TextAlign.center),
-              const SizedBox(height: 48),
+              AppStyles.spacingXXLBox,
               
               _buildTextField(
                 controller: _emailController,
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.next,
                 onSubmitted: (_) => _passwordFocusNode.requestFocus(),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
               _buildTextField(
                 controller: _passwordController,
                 focusNode: _passwordFocusNode,
@@ -154,14 +154,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text("Passwort vergessen?", style: AppStyles.bodyStyle.copyWith(color: AppStyles.primaryOrange, fontWeight: FontWeight.bold)),
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
               
               ElevatedButton(
                 onPressed: _isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppStyles.primaryOrange,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: AppStyles.spacingL - AppStyles.spacingS), // 20px
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
                   elevation: 0,
                 ),
@@ -209,8 +209,10 @@ class _LoginScreenState extends State<LoginScreen> {
             : null,
         filled: true,
         fillColor: Colors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: AppStyles.spacingL,
+          vertical: AppStyles.spacingL - AppStyles.spacingS, // 20px
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),

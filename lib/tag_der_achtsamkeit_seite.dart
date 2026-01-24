@@ -36,11 +36,11 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(24),
+        padding: AppStyles.listPadding,
         children: [
           // Header-Bereich
           Container(
-            padding: const EdgeInsets.all(32),
+            padding: AppStyles.cardPaddingLarge,
             decoration: BoxDecoration(
               color: AppStyles.primaryOrange,
               borderRadius: BorderRadius.circular(28),
@@ -56,7 +56,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(Icons.spa, color: Colors.white, size: 48),
-                const SizedBox(height: 24),
+                AppStyles.spacingLBox,
                 const Text(
                   'Tag der Achtsamkeit',
                   style: TextStyle(
@@ -65,7 +65,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
                 Text(
                   'Ein spezieller Tag für Kursteilnehmer und Ehemalige.',
                   style: TextStyle(
@@ -78,41 +78,41 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 48),
+          AppStyles.spacingXXLBox,
 
           _buildSectionHeader("UNTERLAGEN"),
-          const SizedBox(height: 16),
+          AppStyles.spacingMBox,
 
           if (daten['pdfs'] != null)
             ...List<Map<String, dynamic>>.from(daten['pdfs']).map(
-              (pdf) => _buildPDFCard(pdf),
-            ),
+              (pdf) => _buildPDFCard(pdf            ),
+          ),
 
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
           _buildSectionHeader("NÄCHSTER TERMIN"),
-          const SizedBox(height: 16),
+          AppStyles.spacingMBox,
 
           Card(
             elevation: 0,
             color: Colors.white,
             shape: AppStyles.cardShape,
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: AppStyles.cardPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       const Icon(Icons.calendar_today_outlined, color: AppStyles.sageGreen, size: 20),
-                      const SizedBox(width: 12),
+                      SizedBox(width: AppStyles.spacingM - AppStyles.spacingS), // 12px
                       Text(
                         'Datum folgt',
                         style: AppStyles.subTitleStyle,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
                   Text(
                     'Die Termine werden rechtzeitig per E-Mail bekannt gegeben.',
                     style: AppStyles.bodyStyle,
@@ -122,10 +122,10 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
           _buildSectionHeader("KONTAKT"),
-          const SizedBox(height: 16),
+          AppStyles.spacingMBox,
 
           Card(
             elevation: 0,
@@ -135,24 +135,24 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
               onTap: _oeffneEmail,
               borderRadius: BorderRadius.circular(28),
               child: Padding(
-                padding: const EdgeInsets.all(24),
+                padding: AppStyles.cardPadding,
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: EdgeInsets.all(AppStyles.spacingM - AppStyles.spacingS), // 12px
                       decoration: BoxDecoration(
                         color: AppStyles.sageGreen.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: const Icon(Icons.email_outlined, color: AppStyles.sageGreen),
                     ),
-                    const SizedBox(width: 20),
+                    SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Fragen?', style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6))),
-                          const SizedBox(height: 4),
+                          AppStyles.spacingXSBox,
                           Text(
                             'achtsamkeit@belight-leipzig.de',
                             style: AppStyles.subTitleStyle.copyWith(color: AppStyles.sageGreen),
@@ -167,11 +167,11 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
           // Hinweis
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
             decoration: BoxDecoration(
               color: AppStyles.primaryOrange.withOpacity(0.05),
               borderRadius: BorderRadius.circular(20),
@@ -180,7 +180,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             child: Row(
               children: [
                 const Icon(Icons.info_outline, color: AppStyles.primaryOrange, size: 20),
-                const SizedBox(width: 16),
+                AppStyles.spacingMHorizontal,
                 Expanded(
                   child: Text(
                     "Dieser Bereich steht auch nach Kursende für deine private Praxis zur Verfügung.",

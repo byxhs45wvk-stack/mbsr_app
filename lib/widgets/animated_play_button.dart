@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../core/app_styles.dart';
+import 'styled_tooltip.dart';
 
 /// Animierter Play/Pause Button mit Haptik-Feedback
 /// 
@@ -87,7 +88,7 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
             ),
             child: IconButton(
               icon: Icon(widget.isPlaying ? Icons.pause : Icons.play_arrow),
-              iconSize: widget.size * 0.7,
+              iconSize: widget.size * 0.5, // Kleineres Icon für bessere Proportion
               color: Colors.white,
               onPressed: _handleTap,
             ),
@@ -157,12 +158,14 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
       builder: (context, child) {
         return Transform.scale(
           scale: _scaleAnimation.value,
-          child: IconButton(
-            icon: Icon(widget.icon),
-            iconSize: widget.iconSize,
-            color: widget.color ?? AppStyles.softBrown,
-            onPressed: _handleTap,
-            tooltip: widget.tooltip,
+          child: StyledTooltip( // Tooltip hinzugefügt
+            message: widget.tooltip ?? '',
+            child: IconButton(
+              icon: Icon(widget.icon),
+              iconSize: widget.iconSize,
+              color: widget.color ?? AppStyles.softBrown,
+              onPressed: _handleTap,
+            ),
           ),
         );
       },

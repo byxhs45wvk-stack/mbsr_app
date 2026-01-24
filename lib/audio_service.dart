@@ -19,6 +19,24 @@ class AudioService {
         debugPrint('AudioService: Player-Fehler (z.B. Seeking/Netzwerk): $e');
       }
     });
+    
+    // Höre auf Player-State-Änderungen, um Status automatisch zu aktualisieren
+    _playerStateSubscription = _player.playerStateStream.listen((playerState) {
+      // Nur aktualisieren, wenn wir ein Audio haben
+      if (_currentAppwriteId != null) {
+        if (playerState.processingState == ProcessingState.ready && playerState.playing) {
+          _updateStatus(AudioServiceStatus.playing);
+        } else if (playerState.processingState == ProcessingState.loading) {
+          // Nur auf "loading" setzen, wenn wir wirklich noch laden
+          // Nicht, wenn wir bereits spielen
+          if (_status != AudioServiceStatus.playing) {
+            _updateStatus(AudioServiceStatus.loading);
+          }
+        } else if (playerState.processingState == ProcessingState.ready && !playerState.playing) {
+          _updateStatus(AudioServiceStatus.paused);
+        }
+      }
+    });
   }
 
   final AudioPlayer _player = AudioPlayer();
@@ -35,6 +53,9 @@ class AudioService {
   Stream<Duration> get positionStream => _player.positionStream;
   Stream<Duration?> get durationStream => _player.durationStream;
   Stream<PlayerState> get playerStateStream => _player.playerStateStream;
+  
+  // Listener für Player-State (um Status automatisch zu aktualisieren)
+  StreamSubscription<PlayerState>? _playerStateSubscription;
 
   AudioServiceStatus get status => _status;
   String? get currentAppwriteId => _currentAppwriteId;
@@ -83,8 +104,9 @@ class AudioService {
       if (_player.playing) {
         await pause();
       } else {
-        _player.play();
+        // SOFORT Status auf "playing" setzen für schnelle UI-Reaktion
         _updateStatus(AudioServiceStatus.playing);
+        _player.play(); // Nicht await - damit UI sofort reagiert
       }
       return;
     }
@@ -92,15 +114,15 @@ class AudioService {
     // Statistiken für das VORHERIGE Audio speichern, falls vorhanden
     _saveCurrentStats();
 
-    // Clean Swap: Altes Audio stoppen
+    // WICHTIG: Setze Infos SOFORT, damit der Player in der UI erscheint
+    _currentAppwriteId = appwriteId;
+    _currentTitle = title;
+    _currentAudio = audio;
+    
+    // Setze Status auf "loading" nur kurz, dann sofort optimistisch auf "playing"
     _updateStatus(AudioServiceStatus.loading);
+    
     try {
-      // WICHTIG: Setze Infos SOFORT, damit der Player in der UI erscheint
-      _currentAppwriteId = appwriteId;
-      _currentTitle = title;
-      _currentAudio = audio;
-      _updateStatus(AudioServiceStatus.loading); // Erneutes Update für die UI
-
       // WICHTIG: Setze Tracking-Status zurück
       _hasTracked80Percent = false;
       _sessionStartPosition = null;
@@ -120,11 +142,16 @@ class AudioService {
         preload: true, // Lädt Metadaten (Dauer) sofort
       );
 
-      _currentAudio = audio;
-
-      await _player.play();
-
+      // OPTIMISTISCH: Setze Status SOFORT auf "playing", bevor play() fertig ist
+      // Der Player-State-Listener wird den tatsächlichen Status korrigieren, falls nötig
       _updateStatus(AudioServiceStatus.playing);
+      
+      // Starte Playback (nicht await - damit UI sofort reagiert)
+      _player.play().catchError((e) {
+        // Falls Fehler auftritt, Status korrigieren
+        if (kDebugMode) debugPrint("AudioService: Play-Fehler: $e");
+        _updateStatus(AudioServiceStatus.error);
+      });
 
       // Starte 80%-Tracking
       _startTracking();
@@ -249,6 +276,7 @@ class AudioService {
 
   void dispose() {
     _positionSubscription?.cancel();
+    _playerStateSubscription?.cancel();
     _saveCurrentStats();
     _player.dispose();
     _statusController.close();

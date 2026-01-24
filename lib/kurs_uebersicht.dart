@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 import 'wochen_detail_seite.dart';
 import 'vertiefung_seite.dart';
 import 'profil_seite.dart';
@@ -14,6 +13,7 @@ import 'audio_service.dart';
 import 'widgets/ambient_background.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/subtle_divider.dart';
 
 class KursUebersicht extends StatefulWidget {
   final String kursTyp;
@@ -87,10 +87,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
   Widget _buildFullPlayerContent() {
     return AmbientBackground(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+        padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingXL),
         child: Column(
         children: [
-          const SizedBox(height: 16),
+          AppStyles.spacingMBox,
           // Header mit Handle und Schließen-Button
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +113,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               icon: Icon(
                 Icons.close_rounded,
                 color: AppStyles.textDark.withOpacity(0.6),
-                size: 28,
+                size: AppStyles.iconSizeL,
               ),
               onPressed: () {
                 _audioService.stop(); // Audio stoppen
@@ -122,7 +122,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               tooltip: 'Schließen & Stoppen',
             ),
           ),
-          const SizedBox(height: 24),
+          AppStyles.spacingLBox,
           
           // Cover/Icon Area
           Expanded(
@@ -150,7 +150,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             ),
           ),
           
-          const SizedBox(height: 48),
+          AppStyles.spacingXXLBox,
           
           // Title & Description
           Text(
@@ -158,7 +158,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             style: AppStyles.titleStyle.copyWith(fontSize: 24),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
+          AppStyles.spacingSBox,
           Text(
             "Achtsamkeitspraxis",
             style: AppStyles.bodyStyle.copyWith(
@@ -167,7 +167,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             ),
           ),
           
-          const SizedBox(height: 48),
+          AppStyles.spacingXXLBox,
           
           // Progress Area
           StreamBuilder<Duration>(
@@ -211,7 +211,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             },
           ),
           
-          const SizedBox(height: 32),
+          AppStyles.spacingXLBox,
           
           // Controls Area
           Row(
@@ -228,7 +228,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   _audioService.seek(newPos < Duration.zero ? Duration.zero : newPos);
                 },
               ),
-              const SizedBox(width: 24),
+              AppStyles.spacingLHorizontal,
               // Play/Pause Large
               StreamBuilder<AudioServiceStatus>(
                 stream: _audioService.statusStream,
@@ -252,7 +252,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   );
                 },
               ),
-              const SizedBox(width: 24),
+              AppStyles.spacingLHorizontal,
               // Forward 30s
               AnimatedIconButton(
                 icon: Icons.forward_30,
@@ -269,7 +269,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           ),
           
           const Spacer(),
-          const SizedBox(height: 48),
+          AppStyles.spacingXXLBox,
         ],
         ),
       ),
@@ -296,7 +296,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.person_outline, color: AppStyles.softBrown, size: 28),
+            icon: Icon(Icons.person_outline, color: AppStyles.softBrown, size: AppStyles.iconSizeL),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ProfilSeite()),
@@ -402,9 +402,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   color: AppStyles.primaryOrange.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.self_improvement, color: AppStyles.primaryOrange),
+                child: Icon(Icons.self_improvement, color: AppStyles.primaryOrange, size: AppStyles.iconSizeM),
               ),
-              const SizedBox(width: 16),
+              AppStyles.spacingMHorizontal,
               // Titel
               Expanded(
                 child: Column(
@@ -450,7 +450,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             ],
           ),
           // Mini Progress Bar ganz unten
-          const SizedBox(height: 8),
+          AppStyles.spacingSBox,
           StreamBuilder<Duration>(
             stream: _audioService.positionStream,
             builder: (context, snapshot) {
@@ -549,13 +549,13 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildFilterRow(),
-                      const SizedBox(height: 16),
+                      const SubtleDivider(),
                       ...AppDaten.wochenDaten.asMap().entries.map((entry) {
                         final index = entry.key;
                         final woche = entry.value;
                         return _buildWochenCard(context, woche, index);
                       }),
-                      const SizedBox(height: 8),
+                      AppStyles.spacingSBox,
                       _buildTagDerAchtsamkeitCard(context),
                     ],
                   ),
@@ -570,7 +570,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+      padding: EdgeInsets.fromLTRB(AppStyles.spacingL, AppStyles.spacingM, AppStyles.spacingL, AppStyles.spacingXL),
       child: Column(
         children: [
           Container(
@@ -579,15 +579,15 @@ class _KursUebersichtState extends State<KursUebersicht> {
               color: AppStyles.primaryOrange.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.self_improvement,
               color: AppStyles.primaryOrange,
-              size: 48,
+              size: AppStyles.iconSizeXL,
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: AppStyles.spacingL + AppStyles.spacingS), // 20px
           Text("Dein MBSR-Kurs", style: AppStyles.titleStyle, textAlign: TextAlign.center),
-          const SizedBox(height: 8),
+          AppStyles.spacingSBox,
           Text(
             "8-Wochen-Achtsamkeitsprogramm",
             style: AppStyles.bodyStyle.copyWith(
@@ -602,7 +602,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
 
   Widget _buildFilterRow() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, bottom: 8),
+      padding: EdgeInsets.only(left: AppStyles.spacingS, bottom: AppStyles.spacingS),
       child: Text("Wochen", style: AppStyles.headingStyle.copyWith(fontSize: 18)),
     );
   }
@@ -612,12 +612,12 @@ class _KursUebersichtState extends State<KursUebersicht> {
     final cardColor = AppStyles.successGreen;
     
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: AppStyles.spacingM),
       shape: AppStyles.cardShape,
       elevation: 0,
       color: Colors.white,
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        contentPadding: EdgeInsets.symmetric(horizontal: AppStyles.spacingL, vertical: AppStyles.spacingM - AppStyles.spacingS),
         leading: Container(
           width: 48,
           height: 48,
@@ -638,7 +638,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           ),
         ),
         title: Text(woche['t'], style: AppStyles.subTitleStyle),
-        trailing: const Icon(Icons.chevron_right, color: AppStyles.borderColor),
+        trailing: Icon(Icons.chevron_right, color: AppStyles.borderColor, size: AppStyles.iconSizeM),
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => WochenDetailSeite(
@@ -694,7 +694,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        trailing: Icon(Icons.chevron_right, color: AppStyles.accentPink),
+        trailing: Icon(Icons.chevron_right, color: AppStyles.accentPink, size: AppStyles.iconSizeM),
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => TagDerAchtsamkeitSeite(daten: AppDaten.tagDerAchtsamkeit)),
         ),

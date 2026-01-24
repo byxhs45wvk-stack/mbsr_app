@@ -138,16 +138,16 @@ class LiteraturSeite extends StatelessWidget {
       ),
       body: DecorativeBlobs(
         child: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: AppStyles.listPadding,
           children: [
           _buildSectionHeader("BÜCHER"),
-          const SizedBox(height: 16),
+          AppStyles.spacingMBox,
           ...buecher.map((buch) => _buildBookCard(buch)),
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
           _buildSectionHeader("FACHARTIKEL & STUDIEN"),
-          const SizedBox(height: 16),
+          AppStyles.spacingMBox,
           ...artikel.map((art) => _buildArticleCard(art)),
-          const SizedBox(height: 40),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
         ],
         ),
       ),
@@ -156,7 +156,7 @@ class LiteraturSeite extends StatelessWidget {
 
   Widget _buildSectionHeader(String title) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8),
+      padding: EdgeInsets.only(left: AppStyles.spacingS),
       child: Text(
         title,
         style: AppStyles.bodyStyle.copyWith(
@@ -171,12 +171,12 @@ class LiteraturSeite extends StatelessWidget {
 
   Widget _buildBookCard(Map<String, String> buch) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: AppStyles.spacingM),
       elevation: 0,
       color: Colors.white,
       shape: AppStyles.cardShape,
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -188,15 +188,15 @@ class LiteraturSeite extends StatelessWidget {
               ),
               child: const Icon(Icons.book_outlined, color: AppStyles.softBrown),
             ),
-            const SizedBox(width: 20),
+            SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(buch['titel']!, style: AppStyles.subTitleStyle),
-                  const SizedBox(height: 4),
+                  AppStyles.spacingXSBox,
                   Text(buch['autor']!, style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold, color: AppStyles.sageGreen)),
-                  const SizedBox(height: 8),
+                  AppStyles.spacingSBox,
                   Text(buch['info']!, style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.7))),
                 ],
               ),
@@ -209,7 +209,7 @@ class LiteraturSeite extends StatelessWidget {
 
   Widget _buildArticleCard(Map<String, String> art) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: AppStyles.spacingM),
       elevation: 0,
       color: Colors.white,
       shape: AppStyles.cardShape,
@@ -217,24 +217,24 @@ class LiteraturSeite extends StatelessWidget {
         onTap: () => _oeffneUrl(art['url']!),
         borderRadius: BorderRadius.circular(28),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(AppStyles.spacingM - AppStyles.spacingS), // 12px
                 decoration: BoxDecoration(
                   color: AppStyles.sageGreen.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(Icons.science_outlined, color: AppStyles.sageGreen),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(art['titel']!, style: AppStyles.subTitleStyle),
-                    const SizedBox(height: 4),
+                    AppStyles.spacingXSBox,
                     Text(art['journal']!, style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withOpacity(0.6))),
                   ],
                 ),

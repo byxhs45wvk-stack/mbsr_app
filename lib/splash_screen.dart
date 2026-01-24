@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   size: 80,
                   color: AppStyles.primaryOrange,
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
 
                 // Haupttitel
                 Text(
@@ -72,12 +72,12 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontWeight: FontWeight.w400,
                     color: AppStyles.successGreen,
                     letterSpacing: 1.0,
-                  ),
                 ),
+              ),
 
-                const SizedBox(height: 40),
+              SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
-                // Die drei Begriffe (Unterschrift)
+              // Die drei Begriffe (Unterschrift)
                 Text(
                   "Präsenz • Verbundenheit • Mitgefühl",
                   style: TextStyle(

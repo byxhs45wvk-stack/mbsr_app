@@ -7,6 +7,7 @@ import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/subtle_divider.dart';
 
 class MediathekSeite extends StatefulWidget {
   const MediathekSeite({super.key});
@@ -104,15 +105,16 @@ class _MediathekSeiteState extends State<MediathekSeite> {
           children: [
           // Header mit Info-Button
           Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 16, 8),
+            padding: EdgeInsets.fromLTRB(AppStyles.spacingL, AppStyles.spacingM, AppStyles.spacingM, AppStyles.spacingS),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Mediathek', style: AppStyles.headingStyle),
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.info_outline,
                     color: AppStyles.softBrown,
+                    size: AppStyles.iconSizeM,
                   ),
                   onPressed: () => _showTrackingInfo(context),
                   tooltip: 'Über das Tracking',
@@ -120,6 +122,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
               ],
             ),
           ),
+          const SubtleDivider(height: 1, verticalMargin: 0),
           // Offline-Banner
           StreamBuilder<bool>(
             stream: ConnectivityService.onlineStream,
@@ -130,10 +133,10 @@ class _MediathekSeiteState extends State<MediathekSeite> {
 
               return Container(
                 width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 16,
+                margin: EdgeInsets.symmetric(horizontal: AppStyles.spacingL, vertical: AppStyles.spacingS),
+                padding: EdgeInsets.symmetric(
+                  vertical: 10, // Spezifischer Wert für Banner
+                  horizontal: AppStyles.spacingM,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.orange.shade100,
@@ -147,7 +150,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                       size: 18,
                       color: Colors.orange.shade800,
                     ),
-                    const SizedBox(width: 8),
+                    AppStyles.spacingSHorizontal,
                     Text(
                       'Offline - Audios können nicht geladen werden',
                       style: TextStyle(
@@ -162,7 +165,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingL, vertical: AppStyles.spacingM),
             child: TextField(
               controller: _searchController,
               style: AppStyles.bodyStyle,
@@ -177,10 +180,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 ),
                 filled: true,
                 fillColor: Colors.white,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 16,
-                ),
+                contentPadding: AppStyles.inputPadding,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                   borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
@@ -203,11 +203,11 @@ class _MediathekSeiteState extends State<MediathekSeite> {
           Expanded(
             child: ListView.builder(
               itemCount: audios.length,
-              padding: const EdgeInsets.fromLTRB(
-                24,
-                8,
-                24,
-                150,
+              padding: EdgeInsets.fromLTRB(
+                AppStyles.spacingL,
+                AppStyles.spacingS,
+                AppStyles.spacingL,
+                150, // Spezifischer Wert für Player-Platz
               ), // Mehr Platz für den globalen Player
               itemBuilder: (context, i) {
                 final audio = audios[i];
@@ -241,7 +241,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                         onTap: () => _play(audio),
                         borderRadius: BorderRadius.circular(28),
                         child: Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
                           child: Row(
                             children: [
                               // Play/Pause Button
@@ -273,7 +273,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                       showShadow: false,
                                       onPressed: () => _play(audio),
                                     ),
-                              const SizedBox(width: 20),
+                              SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
                               // Title & Duration
                               Expanded(
                                 child: Column(
@@ -287,7 +287,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                             : AppStyles.softBrown,
                                       ),
                                     ),
-                                    const SizedBox(height: 6),
+                                    SizedBox(height: AppStyles.spacingM - AppStyles.spacingS - AppStyles.spacingXS), // 6px
                                     Row(
                                       children: [
                                         Icon(
@@ -296,7 +296,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                           color: AppStyles.softBrown
                                               .withOpacity(0.5),
                                         ),
-                                        const SizedBox(width: 4),
+                                        AppStyles.spacingXSHorizontal,
                                         Text(
                                           '• ${audio['duration'] ?? ''}',
                                           style: AppStyles.bodyStyle.copyWith(

@@ -13,7 +13,7 @@ class MBSRHomePage extends StatelessWidget {
       backgroundColor: AppStyles.bgColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingXL + AppStyles.spacingS), // 40px
           child: Column(
             children: [
               const Spacer(),
@@ -22,13 +22,13 @@ class MBSRHomePage extends StatelessWidget {
                 size: 120,
                 color: AppStyles.primaryOrange,
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
               Text(
                 'Willkommen bei deinem Training',
                 textAlign: TextAlign.center,
                 style: AppStyles.titleStyle.copyWith(fontSize: 26),
               ),
-              const SizedBox(height: 16),
+              AppStyles.spacingMBox,
               Text(
                 'Melde dich mit deinen persönlichen Zugangsdaten an.',
                 textAlign: TextAlign.center,
@@ -37,7 +37,7 @@ class MBSRHomePage extends StatelessWidget {
                   color: AppStyles.softBrown.withOpacity(0.7),
                 ),
               ),
-              const SizedBox(height: 60),
+              SizedBox(height: AppStyles.spacingXXL + AppStyles.spacingM), // 60px
               // Direkter Login-Button
               SizedBox(
                 width: double.infinity,
@@ -53,7 +53,7 @@ class MBSRHomePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppStyles.primaryOrange,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 22),
+                    padding: EdgeInsets.symmetric(vertical: AppStyles.spacingL + AppStyles.spacingXS), // 22px
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
@@ -72,7 +72,7 @@ class MBSRHomePage extends StatelessWidget {
               const Spacer(),
               // Footer mit Impressum und Datenschutz
               Padding(
-                padding: const EdgeInsets.only(bottom: 30),
+                padding: EdgeInsets.only(bottom: AppStyles.spacingXL - AppStyles.spacingS), // 30px
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -84,7 +84,7 @@ class MBSRHomePage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingM - AppStyles.spacingS), // 12px
                       child: Text(
                         '•',
                         style: TextStyle(color: AppStyles.softBrown.withOpacity(0.3)),

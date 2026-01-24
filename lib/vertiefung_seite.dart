@@ -17,22 +17,22 @@ class VertiefungSeite extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecorativeBlobs(
       child: ListView(
-        padding: const EdgeInsets.all(24),
+        padding: AppStyles.listPadding,
         children: [
         // Header
         Text(
           "Vertiefung",
           style: AppStyles.headingStyle,
         ),
-        const SizedBox(height: 8),
+        AppStyles.spacingSBox,
         Text(
           "Zusätzliche Übungen und Ressourcen für deine Praxis",
           style: AppStyles.bodyStyle.copyWith(color: AppStyles.softBrown.withOpacity(0.7)),
         ),
-        const SizedBox(height: 32),
+        AppStyles.spacingXLBox,
 
         _buildSectionHeader("ZUSÄTZLICHE ÜBUNGEN"),
-        const SizedBox(height: 16),
+        AppStyles.spacingMBox,
 
         // Coming soon Card
         Card(
@@ -40,7 +40,7 @@ class VertiefungSeite extends StatelessWidget {
           color: Colors.white,
           shape: AppStyles.cardShape,
           child: Padding(
-            padding: const EdgeInsets.all(32),
+            padding: AppStyles.cardPaddingLarge,
             child: Center(
               child: Column(
                 children: [
@@ -56,12 +56,12 @@ class VertiefungSeite extends StatelessWidget {
                       color: AppStyles.softBrown.withOpacity(0.3),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
                   Text(
                     "Coming soon",
                     style: AppStyles.subTitleStyle.copyWith(color: AppStyles.softBrown.withOpacity(0.5)),
                   ),
-                  const SizedBox(height: 8),
+                  AppStyles.spacingSBox,
                   Text(
                     "Neue Übungen werden in Kürze hinzugefügt",
                     textAlign: TextAlign.center,
@@ -73,10 +73,10 @@ class VertiefungSeite extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 40),
+        SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
         _buildSectionHeader("LITERATUR & FORSCHUNG"),
-        const SizedBox(height: 16),
+        AppStyles.spacingMBox,
         
         Card(
           elevation: 0,
@@ -89,7 +89,7 @@ class VertiefungSeite extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(28),
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: AppStyles.cardPadding,
               child: Row(
                 children: [
                   Container(
@@ -104,7 +104,7 @@ class VertiefungSeite extends StatelessWidget {
                       size: 24,
                     ),
                   ),
-                  const SizedBox(width: 20),
+                  SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
