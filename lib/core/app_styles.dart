@@ -10,7 +10,7 @@ class AppStyles {
   static const Color accentCoral = Color(0xFFFF8FA3); // Sanftes Korallen-Pink
   static const Color successGreen = Color(0xFF4ECDC4); // Frisches Türkis (Abgeschlossen/Erfolg)
   static const Color accentCyan = Color(0xFF5BC0BE); // Lebendiges Cyan
-  static const Color textDark = Color(0xFF1A1A1A); // Kräftiges Anthrazit für maximale Lesbarkeit
+  static const Color textDark = Color(0xFF121212); // Extrem tiefes Anthrazit für maximalen Kontrast
   static const Color softBrown = textDark; // Alias für Rückwärtskompatibilität
   static const Color sageGreen = successGreen; // Alias für Rückwärtskompatibilität
   static const Color borderColor = Color(0xFFE0E0E0); // Sehr feine graue Umrandung
@@ -28,22 +28,22 @@ class AppStyles {
   );
 
   // ============================================
-  // TYPOGRAPHY (Nunito) - Optimiert
+  // TYPOGRAPHY (Nunito) - Maximale Schärfe
   // ============================================
   
   // Font Weights (konsistent)
   static const FontWeight fontWeightBold = FontWeight.w700;      // Hauptüberschriften
-  static const FontWeight fontWeightSemiBold = FontWeight.w600;  // Unterüberschriften, wichtige Labels
-  static const FontWeight fontWeightRegular = FontWeight.w400;    // Body-Text, Standard
-  static const FontWeight fontWeightLight = FontWeight.w300;     // Dekorative Texte, Zitate
+  static const FontWeight fontWeightSemiBold = FontWeight.w600;  // Unterüberschriften, wichtige Labels, jetzt auch Body
+  static const FontWeight fontWeightRegular = FontWeight.w400;    // Standard
+  static const FontWeight fontWeightLight = FontWeight.w300;     // Dekorative Texte
 
   // Title Style (große Überschriften)
   static TextStyle get titleStyle => const TextStyle(
     fontSize: 28,
     fontWeight: fontWeightBold,      // 700
     color: textDark,
-    height: 1.2,                    // Kompakt, kraftvoll (optimiert von 1.3)
-    letterSpacing: -0.5,            // Kompakter, moderner
+    height: 1.2,
+    letterSpacing: -0.5,
   );
 
   // Heading Style (Unterüberschriften)
@@ -51,45 +51,45 @@ class AppStyles {
     fontSize: 22,
     fontWeight: fontWeightBold,      // 700
     color: textDark,
-    height: 1.2,                    // Kompakt, kraftvoll
-    letterSpacing: -0.3,            // Leicht kompakter
+    height: 1.2,
+    letterSpacing: -0.3,
   );
 
   // SubTitle Style (Zwischenüberschriften)
   static TextStyle get subTitleStyle => const TextStyle(
     fontSize: 16,
-    fontWeight: fontWeightSemiBold, // 600
+    fontWeight: fontWeightBold,     // Erhöht auf 700 für mehr Schärfe
     color: textDark,
-    height: 1.4,                    // Ausgewogen
-    letterSpacing: 0.0,             // Neutral
+    height: 1.4,
+    letterSpacing: 0.0,
   );
 
   // Body Style (Haupttext)
   static TextStyle get bodyStyle => const TextStyle(
     fontSize: 14,
-    fontWeight: fontWeightRegular,   // 400
+    fontWeight: fontWeightSemiBold,  // Erhöht auf 600 für bessere Lesbarkeit auf hellen Karten
     color: textDark,
-    height: 1.6,                    // Luftig, entspannt lesbar (optimiert von 1.5)
-    letterSpacing: 0.5,             // Mehr Luft, besser lesbar
+    height: 1.6,
+    letterSpacing: 0.2,             // Reduziert für kompaktere, schärfere Wirkung
   );
 
   // Small Text Style (kleine Labels, Captions)
   static TextStyle get smallTextStyle => const TextStyle(
     fontSize: 12,
-    fontWeight: fontWeightRegular,   // 400
+    fontWeight: fontWeightSemiBold,  // Erhöht auf 600
     color: textDark,
-    height: 1.4,                    // Ausgewogen
-    letterSpacing: 0.3,             // Leicht mehr Luft
+    height: 1.4,
+    letterSpacing: 0.2,
   );
 
   // Decorative Text Style (Zitate, dekorative Texte)
   static TextStyle get decorativeTextStyle => const TextStyle(
     fontSize: 14,
-    fontWeight: fontWeightLight,      // 300
+    fontWeight: fontWeightSemiBold,   // Erhöht auf 600 (Zitate müssen lesbar sein)
     color: textDark,
     height: 1.5,
-    letterSpacing: 0.8,             // Mehr Luft für elegantes Aussehen
-    fontStyle: FontStyle.italic,     // Optional für Zitate
+    letterSpacing: 0.3,
+    fontStyle: FontStyle.italic,
   );
 
   // Glassmorphismus (Frosted Glass Effect) - 2026 Design

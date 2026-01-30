@@ -1,0 +1,17 @@
+### BEFEHLE ZUM VERÖFFENTLICHEN (GITHUB PAGES) ###
+
+Führe diese drei Befehle nacheinander im Terminal aus, 
+um deine Änderungen live zu schalten:
+
+1. Änderungen vormerken:
+git add .
+
+2. Änderungen bestätigen:
+git commit -m "Update: Arbeitsblätter hinzugefügt und Kontraste optimiert"
+
+3. Änderungen hochladen:
+git push
+
+--------------------------------------------------
+Nach dem 'git push' dauert es ca. 2-3 Minuten, 
+bis die Änderungen auf der Webseite sichtbar sind.

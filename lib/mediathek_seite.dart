@@ -460,10 +460,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                           AppStyles.spacingXSHorizontal,
                                           Text(
                                             '• ${audio['duration'] ?? ''}',
-                                            style: AppStyles.bodyStyle.copyWith(
-                                              color: AppStyles.textDark,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                                            style: AppStyles.bodyStyle,
                                           ),
                                         ],
                                       ),
@@ -476,7 +473,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                   IconButton(
                                     icon: Icon(
                                       Icons.info_outline,
-                                      color: AppStyles.textDark.withOpacity(0.7),
+                                      color: AppStyles.textDark,
                                     ),
                                     onPressed: () => _showAudioInfo(audio),
                                   ),

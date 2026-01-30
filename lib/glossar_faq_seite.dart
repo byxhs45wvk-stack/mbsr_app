@@ -28,11 +28,11 @@ class GlossarFaqSeite extends StatelessWidget {
             tabAlignment: TabAlignment.start,
             labelPadding: EdgeInsets.symmetric(horizontal: AppStyles.spacingM),
             labelColor: AppStyles.textDark,
-            unselectedLabelColor: AppStyles.textDark.withOpacity(0.7),
-            indicatorColor: AppStyles.accentCyan,
-            indicatorWeight: 3,
-            indicatorSize: TabBarIndicatorSize.label,
-            labelStyle: AppStyles.subTitleStyle.copyWith(fontWeight: AppStyles.fontWeightSemiBold),
+          unselectedLabelColor: AppStyles.textDark.withOpacity(0.8),
+          indicatorColor: AppStyles.accentCyan,
+          indicatorWeight: 4,
+          indicatorSize: TabBarIndicatorSize.label,
+          labelStyle: AppStyles.subTitleStyle.copyWith(fontWeight: AppStyles.fontWeightBold),
             tabs: const [
               Tab(text: "Glossar"),
               Tab(text: "Häufige Fragen"),
@@ -343,22 +343,16 @@ class GlossarFaqSeite extends StatelessWidget {
             AppStyles.spacingL,
             AppStyles.spacingL,
           ),
-          iconColor: AppStyles.textDark.withOpacity(0.85),
-          collapsedIconColor: AppStyles.textDark.withOpacity(0.7),
+          iconColor: AppStyles.textDark,
+          collapsedIconColor: AppStyles.textDark.withOpacity(0.9),
           title: Text(
             title,
-            style: AppStyles.subTitleStyle.copyWith(
-              color: AppStyles.textDark,
-              fontWeight: AppStyles.fontWeightSemiBold,
-            ),
+            style: AppStyles.subTitleStyle,
           ),
           children: [
             Text(
               body,
-              style: AppStyles.bodyStyle.copyWith(
-                color: AppStyles.textDark,
-                height: 1.5,
-              ),
+              style: AppStyles.bodyStyle,
             ),
           ],
         ),
